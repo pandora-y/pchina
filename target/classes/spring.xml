@@ -53,6 +53,25 @@
 	
 	<!-- 静态资源访问配置 -->
 	<mvc:resources location="/assets/" mapping="/assets/**"></mvc:resources>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- <mvc:mapping path="/content/**"/> -->
+		<!-- 	<mvc:mapping path="/user/**"/>
+			<mvc:mapping path="/role/**"/>
+			<mvc:mapping path="/resource/**"/>
+			<mvc:mapping path="/content/**"/> -->
+			<mvc:mapping path="/admin/**"/>
+			
+			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:exclude-mapping path="/admin/login"/>
+			<mvc:exclude-mapping path="/admin/loginJson"/>
+			<mvc:exclude-mapping path="/admin/logout"/>
+			<mvc:exclude-mapping path="/error/**"/>
+		
+			<bean class="com.pchina.cms.common.interceptor.AuthInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 
 	<bean id="propertyConfigurer" class="com.pchina.cms.common.utils.PropertyUtils">

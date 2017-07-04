@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.pchina.cms.common.utils.JsonVo;
 import com.pchina.cms.core.model.Admin;
 import com.pchina.cms.service.AdminService;
@@ -19,6 +18,11 @@ import com.pchina.cms.service.AdminService;
 public class LoginController {
 	@Autowired
 	private AdminService adminService;
+	
+	@RequestMapping(value="login")
+	public String Login() {
+		return "admin/login";
+	}
 	
 	@ResponseBody
 	@RequestMapping(value="loginJson", method=RequestMethod.POST)
@@ -42,6 +46,6 @@ public class LoginController {
 		} catch (Exception e) {
 			
 		}
-		return "redirect:/jsp/admin/login.jsp";
+		return "redirect:login";
 	}
 }

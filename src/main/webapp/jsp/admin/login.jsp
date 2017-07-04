@@ -21,16 +21,23 @@
 	$(function() {
 		$('#js-login').on('click', function() {
 			$.ajax({
-				url: '${pageContext.request.contextPath }/admin/loginJson.action',
+				url: '${pageContext.request.contextPath }/admin/loginJson',
 				data: $('#js-login-form').serializeToJson(),
 				type: 'post',
 				success: function(rs) {
+					var backUrl = $.getUrlParam('backUrl');
 					if (rs.result) {
-						window.location.href='${pageContext.request.contextPath }/jsp/admin/index.jsp';
+						window.location.href = backUrl;
 					}
 				}
 			});
 		});
+		
+		$.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
 	});
 </script>
 </body>

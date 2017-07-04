@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pchina.cms.core.dao.ArticleMapper">
+	<resultMap id="BaseResultMap" type="com.pchina.cms.core.model.Article">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, title, content, create_time
+	</sql>
+	
+	<sql id="searchCondition">
+		<if test="keyword != null and '' != keyword">
+			where 
+			title like '%${keyword}%'
+			or content like '%${keyword}%'
+		</if>
+		<if test="orderByField != null and '' != orderByField">
+		ORDER BY ${orderByField}
+		</if>
+		
+	</sql>
+
+	<select id="findAll" resultMap="BaseResultMap" parameterType="com.pchina.cms.core.query.ArticleVo">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM
+		pchina_article
+		<include refid="searchCondition"></include>
+	</select>
+	
+	<select id="findCount" resultType="java.lang.Integer" parameterType="com.pchina.cms.core.query.ArticleVo">
+		SELECT COUNT(*) FROM pchina_article
+		<include refid="searchCondition"></include>
+	</select>
+	
+	<select id="findPage" resultMap="BaseResultMap" parameterType="com.pchina.cms.core.query.ArticleVo">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM
+		pchina_article
+		<include refid="searchCondition"></include>
+		LIMIT ${startIndex}, ${pageSize}
+	</select>
+	
+	<select id="findByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM
+		pchina_article
+		where 1=1
+		and id = #{id,jdbcType=INTEGER}
+	
+	</select>
+	
+	<insert id="add" parameterType="com.pchina.cms.core.model.Article">
+		INSERT INTO pchina_article (title, content, create_time)
+		VALUES
+			(#{title}, #{content}, #{createTime});
+	</insert>
+	
+	<update id="update" parameterType="com.pchina.cms.core.model.Article">
+		UPDATE pchina_article
+		<set>
+			<if test="title != null">
+				title=#{title}
+			</if>
+			<if test="content != null">
+				,content = #{content}
+			</if>
+			where id=#{id}
+		</set>
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		DELETE FROM pchina_article
+		WHERE id=#{id, jdbcType=INTEGER}
+	</delete>
+</mapper>

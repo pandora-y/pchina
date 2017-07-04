@@ -1,0 +1,201 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.springcms</groupId>
+	<artifactId>pchina</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>pchina Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring3.version>3.2.14.RELEASE</spring3.version>
+		<spring4.version>4.1.7.RELEASE</spring4.version>
+		<jackson-databind.version>2.5.3</jackson-databind.version>
+		<mybatis.version>3.3.0</mybatis.version>
+		<mybatis-spring.version>1.2.3</mybatis-spring.version>
+		<mysql.version>5.1.36</mysql.version>
+		<druid.version>1.0.15</druid.version>
+		<sitemesh2.version>2.4.2</sitemesh2.version>
+		<sitemesh3.version>3.0.1</sitemesh3.version>
+		<commons-lang3.version>3.3.2</commons-lang3.version>
+		<log4j.version>1.2.17</log4j.version>
+		<jstl.version>1.2</jstl.version>
+		<servlet-api.version>3.1.0</servlet-api.version>
+		<jsp-api.version>2.2.1-b03</jsp-api.version>
+		<junit.version>3.8.1</junit.version>
+		<jdk.version>1.7</jdk.version>
+	</properties>
+
+	<dependencies>
+		<!-- Spring所需要的Jar包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring4.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${spring4.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring4.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring4.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring4.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring4.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-databind.version}</version>
+		</dependency>
+		<!-- Mybatis所需要的Jar包 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<!-- Mybatis与Spring融合所需要的Jar包 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
+		<!-- 数据库驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+		<!-- 导入alibaba的Druid数据源Jar包 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+
+
+		<!-- 加入Commons Lang3核心包支持 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${jsp-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.github.pagehelper</groupId>
+		    <artifactId>pagehelper</artifactId>
+		    <version>5.0.0</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>pchina</finalName>
+		<plugins>
+			<!-- 编译时使用JDK1.7及UTF－8 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- 配置Tomcat插件(mvn tomcat7:run可以运行项目) -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<!-- <port>9090</port> -->
+					<!-- <path>/mgr</path> -->
+					<!-- <finalName>mgr</finalName> -->
+					<!-- <server>tomcat7</server> -->
+					<!-- <path>/news_manager</path> -->
+					<path>/springcms</path>
+					<uriEncoding>UTF-8</uriEncoding>
+					<port>8080</port>
+				</configuration>
+			</plugin>
+			<!-- 配置Maven插件(mvn jetty:run可以运行项目) -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.11.v20150529</version>
+				<configuration>
+					<!-- 指定访问端口 -->
+					<httpConnector>
+						<port>8081</port>
+					</httpConnector>
+					<!-- 间隔x扫描一次,实现热部署 -->
+					<scanIntervalSeconds>3</scanIntervalSeconds>
+					<!-- 编写类文件之后，是否自动重启jetty；可选后面两个值[manual|automatic] -->
+					<reload>manual</reload>
+					<!-- 指定关闭端口 -->
+					<stopPort>8082</stopPort>
+					<stopKey>stop-jetty-for-it</stopKey>
+					<webApp>
+						<!-- 指定项目路径(如果不写，则按照pom.xml里面的artifactId属性值配置)，访问路径为http://localhost:9999/rms -->
+						<!-- 配置<contextPath>/ssp</contextPath>，则访问路径为http://localhost:9999/rms -->
+						<!-- 配置<contextPath>/</contextPath>，则访问路径为http://localhost:9999 -->
+						<contextPath>/springcms</contextPath>
+					</webApp>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:tool="http://www.springframework.org/schema/tool"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool-4.1.xsd">
+	
+	<!-- 开启Spring的Annotation功能 -->
+	<mvc:annotation-driven />
+	
+	<!-- 自动扫描Controller下的所有控制器 -->
+	<context:component-scan base-package="com.pchina.cms.controller" />
+	
+	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+	<bean id="mappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<!-- 避免IE出现下载JSON文件的情况 -->
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<!-- json转换器 -->
+				<ref bean="mappingJackson2HttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/jsp/" p:suffix=".jsp" />	
+	
+	<!-- 静态资源访问配置 -->
+	<mvc:resources location="/assets/" mapping="/assets/**"></mvc:resources>
+
+
+	<bean id="propertyConfigurer" class="com.pchina.cms.common.utils.PropertyUtils">
+		<property name="locations">
+			<list>
+				<value>classpath:admin-exception.properties</value> <!-- 指定外部文件的编码 -->
+			</list>
+		</property>
+	</bean>
+	
+	<!--全局异常捕捉 -->
+	<bean class="com.pchina.cms.common.utils.GlobalExceptionResolver"></bean>
+</beans>

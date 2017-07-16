@@ -28,6 +28,7 @@
 					var backUrl = $.getUrlParam('backUrl');
 					if (rs.result) {
 						window.location.href = backUrl;
+						
 					}
 				}
 			});
